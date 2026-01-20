@@ -33,4 +33,40 @@ public class Lagenhet extends Bostad {
         this.hyraPris = hyraPris;
     }
 
+    @Override
+    protected void setAntalBadRum(int antalBadRum) {
+        super.setAntalBadRum(antalBadRum);
+    }
+
+    @Override
+    protected void setAntalKök(int antalKök) {
+        super.setAntalKök(antalKök);
+    }
+
+    @Override
+    protected void setAntalRum(int antalRum) {
+        super.setAntalRum(antalRum);
+    }
+
+    @Override
+    protected void setArea(double area) {
+        super.setArea(area);
+    }
+
+    @Override
+    protected void setPris(double pris) {
+        super.setPris(pris);
+    }
+
+    @Override
+    public String toString() {
+        return "Lagenhet [månadsAvgift=" + månadsAvgift + ", hyraPris=" + hyraPris + "]" 
+        + super.toString();
+
+    }
+
+    
+
+    
+
 }

@@ -22,4 +22,16 @@ public class Garage extends Lagring {
         this.parkeringArea = parkeringArea;
     }
 
+    @Override
+    protected void setFörrådsArea(double förrådsArea){
+        super.setFörrådsArea(förrådsArea);
+    }
+
+    @Override
+    protected void setPris(double pris){
+        super.setPris(pris);
+    }
+
+
+
 }

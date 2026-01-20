@@ -31,4 +31,36 @@ public class Villa extends Bostad {
         this.antalBassänger = antalBassänger;
     }
 
+    @Override
+    protected void setAntalBadRum(int antalBadRum) {
+        // TODO Auto-generated method stub
+        super.setAntalBadRum(antalBadRum);
+    }
+
+    @Override
+    protected void setAntalKök(int antalKök) {
+        // TODO Auto-generated method stub
+        super.setAntalKök(antalKök);
+    }
+
+    @Override
+    protected void setAntalRum(int antalRum) {
+        // TODO Auto-generated method stub
+        super.setAntalRum(antalRum);
+    }
+
+    @Override
+    protected void setArea(double area) {
+        // TODO Auto-generated method stub
+        super.setArea(area);
+    }
+
+    @Override
+    protected void setPris(double pris) {
+        // TODO Auto-generated method stub
+        super.setPris(pris);
+    }
+
+    
+
 }

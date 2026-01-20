@@ -29,4 +29,6 @@ public abstract class Lagring {
         this.pris = pris;
     }
 
+    
+
 }

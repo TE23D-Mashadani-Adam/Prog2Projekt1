@@ -76,4 +76,12 @@ public abstract class Bostad {
         this.pris = pris;
     }
 
+    @Override
+    public String toString() {
+        return "[antalRum=" + antalRum + ", area=" + area + ", antalBadRum=" + antalBadRum + ", antalKök="
+                + antalKök + ", pris=" + pris + "]";
+    }
+
+    
+
 }
