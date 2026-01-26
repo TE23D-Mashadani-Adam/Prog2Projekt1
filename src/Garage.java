@@ -34,4 +34,13 @@ public class Garage extends Lagring {
 
 
 
+    @Override
+    public String toString() {
+        return "Garage [parkeringArea=" + parkeringArea + ", toString()=" + super.toString() + "]";
+    }
+
+    
+
+
+
 }

@@ -6,18 +6,44 @@ public class App {
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<Bostad> bostäder = new ArrayList<>();
+        ArrayList<Lagring> lagringsHus = new ArrayList<>();
+        ArrayList<Bestallningar> beställningar = new ArrayList<>();
+
+        int beställningsNum = 0; // Index för beställning i beställningar lista
+
         while (true) {
-            System.out.println("Tryck 1 för att skapa en bostad, 2 för lagring, 3 för lägenhetshus");
+
             int svar1 = 0;
-            try{
-                svar1 = scanner.nextInt();
-            }catch(Exception e){
-                System.out.println("Ange snälla rätt värde");
+            while (true) {
+                System.out.println(
+                        "Tryck 1 för att skapa en bostad, 2 för lagring, 3 för lägenhetshus, 4 för att lista dina skapade bostäder, 5 för dina skapade garager, 6 för att skapa en beställning"
+                                + "7 för att lista beställningar, 8 för att redigera beställningar");
+                try {
+                    svar1 = scanner.nextInt();
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Ange snälla rätt värde");
+                    scanner.nextLine();
+                }
             }
+
+            // Användaren valde att skapa en bostad
             switch (svar1) {
                 case 1:
-                    System.out.println("För Lägenhet tryck 1, 2 för radhus, 3 för villa, annat för att gå tillbaka");
-                    int svar2 = scanner.nextInt();
+                    int svar2 = 0;
+                    while (true) {
+                        System.out
+                                .println(
+                                        "För Lägenhet tryck 1, 2 för radhus, 3 för villa, annat för att gå tillbaka");
+                        try {
+                            svar2 = scanner.nextInt();
+                            break;
+                        } catch (Exception e) {
+                            System.out.println("Ange snälla ett giltigt tal!");
+                            scanner.nextLine();
+                        }
+                    }
+
                     scanner.nextLine();
                     switch (svar2) {
                         case 1:
@@ -29,8 +55,100 @@ public class App {
                         case 3:
                             skapaVilla(scanner, bostäder);
                             break;
+                        case 4:
+                            int i = 1; // En räknevariabel
+                            for (Bostad b : bostäder) {
+                                System.out.println(i + " " + b);
+                                i++;
+                            }
+                            break;
+                        case 5:
+                            int j = 1; // En räknevariabel
+                            for (Lagring b : lagringsHus) {
+                                System.out.println(j + " " + b);
+                                j++;
+                            }
+                            break;
+
                         default:
                             break;
+                    }
+                    break;
+                // Användaren valde att skapa en garage
+                case 2:
+                    skapaGarage(scanner, lagringsHus);
+                    break;
+                // Case 3 gör jag senare
+                case 4:
+                    int i = 1;
+                    for (Bostad b : bostäder) {
+                        System.out.println(i + " " + b); // Kallar metoden b.toString() för varje enskild objekt i
+                                                         // listan
+                        i++;
+                    }
+                    break;
+                case 5:
+                    int j = 0;
+                    for (Lagring lagring : lagringsHus) {
+                        System.out.println(j + " " + lagring);
+                        j++;
+                    }
+                    break;
+                case 6:
+                    beställningar.add(new Bestallningar());
+                    for (Bostad b : bostäder) {
+                        if (b instanceof Lagenhet) {
+                            Lagenhet l = (Lagenhet) b;
+                            beställningar.get(beställningsNum).lägg_till_lagenhet(l);
+
+                        } else if (b instanceof Radhus) {
+                            Radhus r = (Radhus) b;
+                            beställningar.get(beställningsNum).lägg_till_radhus(r);
+                        } else if (b instanceof Villa) {
+                            Villa v = (Villa) b;
+                            beställningar.get(beställningsNum).lägg_till_villa(v);
+                        }
+                    }
+                    for (Lagring lagring : lagringsHus) {
+                        if (lagring instanceof Garage) {
+                            Garage g = (Garage) lagring;
+                            beställningar.get(beställningsNum).lägg_till_garage(g);
+                        }
+                    }
+                    System.out.println("Beställning lagd med nummer " + beställningsNum);
+
+                    beställningsNum++;
+                    break;
+                case 7:
+                    int numInput = 0;
+                    while (true) {
+                        System.out.println("Ange din beställningsnummer");
+                        try {
+                            numInput = scanner.nextInt();
+                            if (numInput > beställningar.size() || numInput < 0) {
+                                System.out.println("Beställningsnumret finns inte!");
+                                continue;
+                            }
+                            break; // Gå ut från loopet om allt är ok
+                        } catch (Exception e) {
+                            System.out.println("Du skrev fel input");
+                        }
+                    }
+
+                    beställningar.get(numInput).lista_beställningar();
+
+                    System.out.println("Om du vill redigera beställningen, tryck vidare, annars skriv 'nej' ");
+                    String redigeraInput = scanner.nextLine();
+                    if (redigeraInput.toLowerCase() == "nej") {
+                        break;
+                    }
+                    System.out.println("1. Ta bort hela beställningen 2. Ta bort en viss enhet");
+                    int redigeraInput2 = scanner.nextInt();
+
+                    if (redigeraInput2 == 1) {
+                        beställningar.remove(numInput);
+                    }else if (redigeraInput2 == 2) {
+                        
                     }
                     break;
                 default:
@@ -404,6 +522,60 @@ public class App {
         }
 
         bostäder.add(new Villa(antalRum, area, antalBadRum, antalKök, pris, tomtArea, antalBassänger));
+    }
+
+    static void skapaGarage(Scanner scanner, ArrayList<Lagring> lagringsHus) {
+
+        double parkeringArea;
+        while (true) {
+            System.out.print("Ange parkerings area: ");
+            try {
+                parkeringArea = scanner.nextDouble();
+                if (parkeringArea <= 0) {
+                    System.out.println("Arean måste vara över 0");
+                    continue;
+                }
+                break;
+            } catch (Exception e) {
+                System.out.println("Ogiltigt värde. Ange ett giltigt tal.");
+                scanner.nextLine();
+            }
+        }
+
+        double förrådsArea;
+        while (true) {
+            System.out.print("Ange förrådsarea i kvm (1-150): ");
+            try {
+                förrådsArea = scanner.nextDouble();
+                if (förrådsArea < 1 || förrådsArea > 150) {
+                    System.out.println("Förrådsarea måste vara mellan 1 och 150 kvm.");
+                    continue;
+                }
+                break;
+            } catch (Exception e) {
+                System.out.println("Ogiltigt värde. Ange ett tal.");
+                scanner.nextLine();
+            }
+        }
+
+        double pris;
+        while (true) {
+            System.out.print("Ange pris i kr (1-500000): ");
+            try {
+                pris = scanner.nextDouble();
+                if (pris < 1 || pris > 500000) {
+                    System.out.println("Pris måste vara mellan 1 och 500000 kr.");
+                    continue;
+                }
+                break;
+            } catch (Exception e) {
+                System.out.println("Ogiltigt värde. Ange ett tal.");
+                scanner.nextLine();
+            }
+        }
+
+        lagringsHus.add(new Garage(förrådsArea, pris, parkeringArea));
+
     }
 
 }

@@ -10,6 +10,10 @@ public class Bestallningar {
         bostäder.add(villa);
     }
 
+    public void lägg_till_lagenhet(Lagenhet lagenhet){
+        bostäder.add(lagenhet);
+    }
+
     public void lägg_till_radhus(Radhus radhus){
         bostäder.add(radhus);
     }

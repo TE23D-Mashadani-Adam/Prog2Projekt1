@@ -61,6 +61,14 @@ public class Villa extends Bostad {
         super.setPris(pris);
     }
 
+    @Override
+    public String toString() {
+        return "Villa [tomtArea=" + tomtArea + ", antalBassänger=" + antalBassänger + ", toString()=" + super.toString()
+                + "]";
+    }
+
+    
+
     
 
 }

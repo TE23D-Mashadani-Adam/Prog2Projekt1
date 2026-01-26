@@ -68,6 +68,14 @@ public class Radhus extends Bostad {
         super.setPris(pris);
     }
 
+    @Override
+    public String toString() {
+        return "Radhus [tomtArea=" + tomtArea + ", antalVåningar=" + antalVåningar + ", altanArea=" + altanArea
+                + ", toString()=" + super.toString() + "]";
+    }
+
+    
+
     
 
 }

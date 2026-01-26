@@ -29,6 +29,13 @@ public abstract class Lagring {
         this.pris = pris;
     }
 
+    @Override
+    public String toString() {
+        return "Lagring [förrådsArea=" + förrådsArea + ", pris=" + pris + "]";
+    }
+
     
+
+
 
 }

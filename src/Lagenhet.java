@@ -60,10 +60,13 @@ public class Lagenhet extends Bostad {
 
     @Override
     public String toString() {
-        return "Lagenhet [månadsAvgift=" + månadsAvgift + ", hyraPris=" + hyraPris + "]" 
-        + super.toString();
-
+        return "Lagenhet [månadsAvgift=" + månadsAvgift + ", hyraPris=" + hyraPris + ", toString()=" + super.toString()
+                + "]";
     }
+
+    
+
+    
 
     
 
