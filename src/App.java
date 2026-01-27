@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.scene.layout.BorderStrokeStyle;
+
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -27,59 +29,18 @@ public class App {
                 }
             }
 
-            // Användaren valde att skapa en bostad
             switch (svar1) {
-                case 1:
-                    int svar2 = 0;
-                    while (true) {
-                        System.out
-                                .println(
-                                        "För Lägenhet tryck 1, 2 för radhus, 3 för villa, annat för att gå tillbaka");
-                        try {
-                            svar2 = scanner.nextInt();
-                            break;
-                        } catch (Exception e) {
-                            System.out.println("Ange snälla ett giltigt tal!");
-                            scanner.nextLine();
-                        }
-                    }
-
-                    scanner.nextLine();
-                    switch (svar2) {
-                        case 1:
-                            skapaLägenhet(scanner, bostäder);
-                            break;
-                        case 2:
-                            skapaRadhus(scanner, bostäder);
-                            break;
-                        case 3:
-                            skapaVilla(scanner, bostäder);
-                            break;
-                        case 4:
-                            int i = 1; // En räknevariabel
-                            for (Bostad b : bostäder) {
-                                System.out.println(i + " " + b);
-                                i++;
-                            }
-                            break;
-                        case 5:
-                            int j = 1; // En räknevariabel
-                            for (Lagring b : lagringsHus) {
-                                System.out.println(j + " " + b);
-                                j++;
-                            }
-                            break;
-
-                        default:
-                            break;
-                    }
+                case 1: // Användaren valde att skapa en bostad
+                    skapaBostadMeny(scanner, bostäder);
                     break;
                 // Användaren valde att skapa en garage
                 case 2:
                     skapaGarage(scanner, lagringsHus);
                     break;
-                // Case 3 gör jag senare
-                case 4:
+                case 3:
+
+                    break;
+                case 4: //Lista bostäder
                     int i = 1;
                     for (Bostad b : bostäder) {
                         System.out.println(i + " " + b); // Kallar metoden b.toString() för varje enskild objekt i
@@ -87,7 +48,7 @@ public class App {
                         i++;
                     }
                     break;
-                case 5:
+                case 5: //Lista lagringar eller lagringshus
                     int j = 0;
                     for (Lagring lagring : lagringsHus) {
                         System.out.println(j + " " + lagring);
@@ -95,61 +56,10 @@ public class App {
                     }
                     break;
                 case 6:
-                    beställningar.add(new Bestallningar());
-                    for (Bostad b : bostäder) {
-                        if (b instanceof Lagenhet) {
-                            Lagenhet l = (Lagenhet) b;
-                            beställningar.get(beställningsNum).lägg_till_lagenhet(l);
-
-                        } else if (b instanceof Radhus) {
-                            Radhus r = (Radhus) b;
-                            beställningar.get(beställningsNum).lägg_till_radhus(r);
-                        } else if (b instanceof Villa) {
-                            Villa v = (Villa) b;
-                            beställningar.get(beställningsNum).lägg_till_villa(v);
-                        }
-                    }
-                    for (Lagring lagring : lagringsHus) {
-                        if (lagring instanceof Garage) {
-                            Garage g = (Garage) lagring;
-                            beställningar.get(beställningsNum).lägg_till_garage(g);
-                        }
-                    }
-                    System.out.println("Beställning lagd med nummer " + beställningsNum);
-
-                    beställningsNum++;
+                    beställningsNum = skapaEnBeställning(bostäder, beställningar, beställningsNum, lagringsHus);
                     break;
                 case 7:
-                    int numInput = 0;
-                    while (true) {
-                        System.out.println("Ange din beställningsnummer");
-                        try {
-                            numInput = scanner.nextInt();
-                            if (numInput > beställningar.size() || numInput < 0) {
-                                System.out.println("Beställningsnumret finns inte!");
-                                continue;
-                            }
-                            break; // Gå ut från loopet om allt är ok
-                        } catch (Exception e) {
-                            System.out.println("Du skrev fel input");
-                        }
-                    }
-
-                    beställningar.get(numInput).lista_beställningar();
-
-                    System.out.println("Om du vill redigera beställningen, tryck vidare, annars skriv 'nej' ");
-                    String redigeraInput = scanner.nextLine();
-                    if (redigeraInput.toLowerCase() == "nej") {
-                        break;
-                    }
-                    System.out.println("1. Ta bort hela beställningen 2. Ta bort en viss enhet");
-                    int redigeraInput2 = scanner.nextInt();
-
-                    if (redigeraInput2 == 1) {
-                        beställningar.remove(numInput);
-                    }else if (redigeraInput2 == 2) {
-                        
-                    }
+                    visaOchHanteraBeställningar(scanner, beställningar);
                     break;
                 default:
                     break;
@@ -576,6 +486,110 @@ public class App {
 
         lagringsHus.add(new Garage(förrådsArea, pris, parkeringArea));
 
+    }
+
+    static void skapaBostadMeny(Scanner scanner, ArrayList<Bostad> bostäder) {
+        int svar2 = 0;
+        while (true) {
+            System.out
+                    .println(
+                            "För Lägenhet tryck 1, 2 för radhus, 3 för villa, annat för att gå tillbaka");
+            try {
+                svar2 = scanner.nextInt();
+                break;
+            } catch (Exception e) {
+                System.out.println("Ange snälla ett giltigt tal!");
+                scanner.nextLine();
+            }
+        }
+
+        scanner.nextLine();
+        switch (svar2) {
+            case 1:
+                skapaLägenhet(scanner, bostäder);
+                break;
+            case 2:
+                skapaRadhus(scanner, bostäder);
+                break;
+            case 3:
+                skapaVilla(scanner, bostäder);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    static int skapaEnBeställning(ArrayList<Bostad> bostäder, ArrayList<Bestallningar> beställningar,
+            int beställningsNum, ArrayList<Lagring> lagringsHus) {
+        beställningar.add(new Bestallningar());
+        for (Bostad b : bostäder) {
+            if (b instanceof Lagenhet) {
+                Lagenhet l = (Lagenhet) b;
+                beställningar.get(beställningsNum).lägg_till_lagenhet(l);
+
+            } else if (b instanceof Radhus) {
+                Radhus r = (Radhus) b;
+                beställningar.get(beställningsNum).lägg_till_radhus(r);
+            } else if (b instanceof Villa) {
+                Villa v = (Villa) b;
+                beställningar.get(beställningsNum).lägg_till_villa(v);
+            }
+        }
+        for (Lagring lagring : lagringsHus) {
+            if (lagring instanceof Garage) {
+                Garage g = (Garage) lagring;
+                beställningar.get(beställningsNum).lägg_till_garage(g);
+            }
+        }
+        System.out.println("Beställning lagd med nummer " + beställningsNum);
+        bostäder.clear(); // Tömmer listorna efter att beställningen skapats
+        lagringsHus.clear();
+
+        beställningsNum++;
+
+        return beställningsNum;
+    }
+
+    static void visaOchHanteraBeställningar(Scanner scanner, ArrayList<Bestallningar> beställningar) {
+        int numInput = 0;
+        while (true) {
+            System.out.println("Ange din beställningsnummer");
+            try {
+                numInput = scanner.nextInt();
+                break; // Gå ut från loopet om allt är ok
+            } catch (Exception e) {
+                System.out.println("Du skrev fel input");
+                scanner.nextLine();
+            }
+        }
+
+        if (numInput < (beställningar.size()) && numInput >= 0) {
+
+            beställningar.get(numInput).lista_beställningar();
+
+            scanner.nextLine();
+
+            System.out.println("Om du vill redigera beställningen, tryck vidare, annars skriv 'nej' ");
+            String redigeraInput = scanner.nextLine();
+            if (!redigeraInput.toLowerCase().equals("nej")) {
+                System.out.println("1. Ta bort hela beställningent");
+
+                int redigeraInput2 = 0;
+                try {
+                    redigeraInput2 = scanner.nextInt();
+                } catch (Exception e) {
+                    System.out.println("Du skrev fel");
+                }
+
+                if (redigeraInput2 == 1) {
+                    beställningar.remove(numInput);
+                }
+            }
+
+        } else {
+            System.out.println("Beställningsnumret finns inte med i systemet");
+        }
     }
 
 }

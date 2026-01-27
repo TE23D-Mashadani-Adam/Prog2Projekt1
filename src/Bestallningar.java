@@ -34,8 +34,5 @@ public class Bestallningar {
 
     }
 
-    public void ta_bort_en_beställning(){
-        
-    }
 
 }
