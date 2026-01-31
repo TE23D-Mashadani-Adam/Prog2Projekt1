@@ -42,19 +42,10 @@ public class App {
                     skapaLagenhetshus(scanner, lagenhetshusLista, bostäder);
                     break;
                 case 4: // Lista bostäder
-                    int i = 1;
-                    for (Bostad b : bostäder) {
-                        System.out.println(i + " " + b); // Kallar metoden b.toString() för varje enskild objekt i
-                                                         // listan
-                        i++;
-                    }
+                    visaListansInnehåll(bostäder);
                     break;
                 case 5: // Lista lagringar eller lagringshus
-                    int j = 0;
-                    for (Lagring lagring : lagringsHus) {
-                        System.out.println(j + " " + lagring);
-                        j++;
-                    }
+                    visaListansInnehåll(lagringsHus);
                     break;
                 case 6:
                     beställningsNum = skapaEnBeställning(bostäder, beställningar, beställningsNum, lagringsHus,
@@ -618,4 +609,13 @@ public class App {
 
     }
 
+    static void visaListansInnehåll(ArrayList lista) {
+        if (!lista.isEmpty()) {
+            for (int i = 0; i < lista.size(); i++) {
+                System.out.println((i + 1) + ". " + lista.get(i));
+            }
+        } else {
+            System.out.println("Din lista är tom");
+        }
+    }
 }
