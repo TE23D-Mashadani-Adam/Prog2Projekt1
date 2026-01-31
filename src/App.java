@@ -10,6 +10,7 @@ public class App {
         ArrayList<Bostad> bostäder = new ArrayList<>();
         ArrayList<Lagring> lagringsHus = new ArrayList<>();
         ArrayList<Bestallningar> beställningar = new ArrayList<>();
+        ArrayList<Lagenhetshus> lagenhetshusLista = new ArrayList<>();
 
         int beställningsNum = 0; // Index för beställning i beställningar lista
 
@@ -19,7 +20,7 @@ public class App {
             while (true) {
                 System.out.println(
                         "Tryck 1 för att skapa en bostad, 2 för lagring, 3 för lägenhetshus, 4 för att lista dina skapade bostäder, 5 för dina skapade garager, 6 för att skapa en beställning"
-                                + "7 för att lista beställningar, 8 för att redigera beställningar");
+                                + ", 7 för att lista beställningar");
                 try {
                     svar1 = scanner.nextInt();
                     break;
@@ -38,9 +39,9 @@ public class App {
                     skapaGarage(scanner, lagringsHus);
                     break;
                 case 3:
-
+                    skapaLagenhetshus(scanner, lagenhetshusLista, bostäder);
                     break;
-                case 4: //Lista bostäder
+                case 4: // Lista bostäder
                     int i = 1;
                     for (Bostad b : bostäder) {
                         System.out.println(i + " " + b); // Kallar metoden b.toString() för varje enskild objekt i
@@ -48,7 +49,7 @@ public class App {
                         i++;
                     }
                     break;
-                case 5: //Lista lagringar eller lagringshus
+                case 5: // Lista lagringar eller lagringshus
                     int j = 0;
                     for (Lagring lagring : lagringsHus) {
                         System.out.println(j + " " + lagring);
@@ -56,7 +57,8 @@ public class App {
                     }
                     break;
                 case 6:
-                    beställningsNum = skapaEnBeställning(bostäder, beställningar, beställningsNum, lagringsHus);
+                    beställningsNum = skapaEnBeställning(bostäder, beställningar, beställningsNum, lagringsHus,
+                            lagenhetshusLista);
                     break;
                 case 7:
                     visaOchHanteraBeställningar(scanner, beställningar);
@@ -521,7 +523,7 @@ public class App {
     }
 
     static int skapaEnBeställning(ArrayList<Bostad> bostäder, ArrayList<Bestallningar> beställningar,
-            int beställningsNum, ArrayList<Lagring> lagringsHus) {
+            int beställningsNum, ArrayList<Lagring> lagringsHus, ArrayList<Lagenhetshus> lagenhetshusLista) {
         beställningar.add(new Bestallningar());
         for (Bostad b : bostäder) {
             if (b instanceof Lagenhet) {
@@ -540,6 +542,11 @@ public class App {
             if (lagring instanceof Garage) {
                 Garage g = (Garage) lagring;
                 beställningar.get(beställningsNum).lägg_till_garage(g);
+            }
+        }
+        if (lagenhetshusLista != null) {
+            for (int i = 0; i < lagenhetshusLista.size(); i++) {
+                beställningar.get(beställningsNum).lägg_till_lägenhetshus(lagenhetshusLista.get(i));
             }
         }
         System.out.println("Beställning lagd med nummer " + beställningsNum);
@@ -590,6 +597,25 @@ public class App {
         } else {
             System.out.println("Beställningsnumret finns inte med i systemet");
         }
+    }
+
+    static void skapaLagenhetshus(Scanner scanner, ArrayList<Lagenhetshus> lägenhetsHusLista,
+            ArrayList<Bostad> bostäder) {
+
+        int antalLägenheter = 0;
+        ArrayList<Lagenhet> lägenheter = new ArrayList<>();
+        System.out.print("Dina lägenheter läggs till i lägenhetshuset" + "\n");
+        for (Bostad bostad : bostäder) {
+            if (bostad instanceof Lagenhet) {
+                Lagenhet b = (Lagenhet) bostad;
+                lägenheter.add(b);
+                antalLägenheter++;
+            }
+        }
+
+        lägenhetsHusLista.add(new Lagenhetshus(lägenheter, antalLägenheter));
+        bostäder.removeAll(lägenheter); // Tar bort lägenheten från bostads listan
+
     }
 
 }
