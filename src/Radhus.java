@@ -12,6 +12,8 @@ public class Radhus extends Bostad {
             throw new IllegalArgumentException("Välj snälla tillåtna värden");
         }
 
+        //Körs om allt är ok
+
         setTomtArea(tomtArea);
         setAntalVåningar(antalVåningar);
         setAltanArea(altanArea);
@@ -37,6 +39,8 @@ public class Radhus extends Bostad {
         }
         this.altanArea = altanArea;
     }
+
+    // Setters från super klassen Bostad
 
     @Override
     protected void setAntalBadRum(int antalBadRum) {

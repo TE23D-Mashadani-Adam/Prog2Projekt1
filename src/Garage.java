@@ -10,10 +10,9 @@ public class Garage extends Lagring {
             throw new IllegalArgumentException("Välj snälla tillåtna värden");
         }
 
+        //Körs om allt är ok
         this.parkeringArea = parkeringArea;
     }
-
-
 
     public void setParkeringArea(double parkeringArea) {
         if (parkeringArea <= 0) {
@@ -21,6 +20,8 @@ public class Garage extends Lagring {
         }
         this.parkeringArea = parkeringArea;
     }
+
+    // Setter från super klassen Lagring
 
     @Override
     protected void setFörrådsArea(double förrådsArea){

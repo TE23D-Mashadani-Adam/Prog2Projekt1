@@ -7,16 +7,18 @@ public class App {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<Bostad> bostäder = new ArrayList<>();
+        ArrayList<Bostad> bostäder = new ArrayList<>(); // Lista med skapade bostäder
         ArrayList<Lagring> lagringsHus = new ArrayList<>();
-        ArrayList<Bestallningar> beställningar = new ArrayList<>();
+        ArrayList<Bestallningar> beställningar = new ArrayList<>(); // Alla skapade beställnigar
         ArrayList<Lagenhetshus> lagenhetshusLista = new ArrayList<>();
 
         int beställningsNum = 0; // Index för beställning i beställningar lista
 
+        // En loop för menyer
         while (true) {
 
             int svar1 = 0;
+            // Loopen säger till att användaren får flera chanser till rätt input
             while (true) {
                 System.out.println(
                         "Tryck 1 för att skapa en bostad, 2 för lagring, 3 för lägenhetshus, 4 för att lista dina skapade bostäder, 5 för dina skapade garager, 6 för att skapa en beställning"
@@ -38,7 +40,7 @@ public class App {
                 case 2:
                     skapaGarage(scanner, lagringsHus);
                     break;
-                case 3:
+                case 3: // Skapa en lägenhetshus
                     skapaLagenhetshus(scanner, lagenhetshusLista, bostäder);
                     break;
                 case 4: // Lista bostäder
@@ -47,11 +49,11 @@ public class App {
                 case 5: // Lista lagringar eller lagringshus
                     visaListansInnehåll(lagringsHus);
                     break;
-                case 6:
+                case 6: // Skapar en beställning
                     beställningsNum = skapaEnBeställning(bostäder, beställningar, beställningsNum, lagringsHus,
                             lagenhetshusLista);
                     break;
-                case 7:
+                case 7: // visar alla beställningar
                     visaOchHanteraBeställningar(scanner, beställningar);
                     break;
                 default:
@@ -61,6 +63,7 @@ public class App {
 
     }
 
+    // Algoritm för att skapa en lägenhet
     static void skapaLägenhet(Scanner scanner, ArrayList<Bostad> bostäder) {
         int antalRum;
         while (true) {
@@ -177,6 +180,7 @@ public class App {
         System.out.println("Lägenhet skapad");
     }
 
+    // ALgoritm för att skapa lägenhetshus
     static void skapaRadhus(Scanner scanner, ArrayList<Bostad> bostäder) {
 
         int antalRum;
@@ -310,6 +314,7 @@ public class App {
         bostäder.add(new Radhus(antalRum, area, antalBadRum, antalKök, pris, tomtArea, antalVåningar, altanArea));
     }
 
+    // ALgoritm för att skapa villa
     static void skapaVilla(Scanner scanner, ArrayList<Bostad> bostäder) {
 
         int antalRum;
@@ -427,6 +432,7 @@ public class App {
         bostäder.add(new Villa(antalRum, area, antalBadRum, antalKök, pris, tomtArea, antalBassänger));
     }
 
+    // ALgoritm för att skapa garage
     static void skapaGarage(Scanner scanner, ArrayList<Lagring> lagringsHus) {
 
         double parkeringArea;
@@ -481,6 +487,7 @@ public class App {
 
     }
 
+    // Metod som skriver ut menyn med alla alternativ för bostad
     static void skapaBostadMeny(Scanner scanner, ArrayList<Bostad> bostäder) {
         int svar2 = 0;
         while (true) {
@@ -513,6 +520,8 @@ public class App {
         }
     }
 
+    // Metoden skapar en beställning med alla nuvarande lagringar och bostäder i
+    // listor
     static int skapaEnBeställning(ArrayList<Bostad> bostäder, ArrayList<Bestallningar> beställningar,
             int beställningsNum, ArrayList<Lagring> lagringsHus, ArrayList<Lagenhetshus> lagenhetshusLista) {
         beställningar.add(new Bestallningar());
@@ -549,6 +558,7 @@ public class App {
         return beställningsNum;
     }
 
+    // Listar upp alla beställningar, ger möjlighet till redigering av beställngar
     static void visaOchHanteraBeställningar(Scanner scanner, ArrayList<Bestallningar> beställningar) {
         int numInput = 0;
         while (true) {
@@ -590,6 +600,7 @@ public class App {
         }
     }
 
+    // Metod som skapar lägenhetshus
     static void skapaLagenhetshus(Scanner scanner, ArrayList<Lagenhetshus> lägenhetsHusLista,
             ArrayList<Bostad> bostäder) {
 
@@ -608,6 +619,8 @@ public class App {
         bostäder.removeAll(lägenheter); // Tar bort lägenheten från bostads listan
 
     }
+
+    //Visar upp innehåll i en lista
 
     static void visaListansInnehåll(ArrayList lista) {
         if (!lista.isEmpty()) {

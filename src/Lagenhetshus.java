@@ -13,12 +13,14 @@ public class Lagenhetshus {
         this.antalLägenheter = antalLägenheter;
     }
 
+    // Metoden listar upp alla lägenheter i lägenhetshuset
     public void lista_lägenheter(){ 
         for (int i = 0; i < lägenheter.size(); i++) {
             System.out.println("Lägenhet-" + (i+1) + " " + lägenheter.get(i).toString());
         }
     }
 
+    // Visar upp all information om lägenhetshuset
     @Override
     public String toString() {
         return "Lagenhetshus [lägenheter=" + lägenheter.toString() + ", antalLägenheter=" + antalLägenheter + "]";

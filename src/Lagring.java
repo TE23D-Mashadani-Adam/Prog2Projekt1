@@ -15,6 +15,7 @@ public abstract class Lagring {
         this.förrådsArea = förrådsArea;
     }
 
+    
     protected void setFörrådsArea(double förrådsArea) {
         if (förrådsArea <= 0 || förrådsArea > 150) {
             throw new IllegalArgumentException("Välj snälla tillåtna värden");

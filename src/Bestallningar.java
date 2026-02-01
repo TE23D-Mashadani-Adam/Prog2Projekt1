@@ -1,38 +1,39 @@
 import java.util.ArrayList;
 
 public class Bestallningar {
-    private ArrayList<Bostad> bostäder = new ArrayList<>();
+    private ArrayList<Bostad> bostäder = new ArrayList<>(); // Lista för beställda bostäder
     private Double totalPris;
-    private ArrayList<Lagring> lagringar = new ArrayList<>();
-    private ArrayList<Lagenhetshus> lagenhetshusLista = new ArrayList<>();
+    private ArrayList<Lagring> lagringar = new ArrayList<>(); // Beställda lagringar
+    private ArrayList<Lagenhetshus> lagenhetshusLista = new ArrayList<>(); // Beställda lägenhetshus
 
-    public void lägg_till_villa(Villa villa){
+    // Metoder som lägger till beställningsobjekt i sina rätta listor
+
+    public void lägg_till_villa(Villa villa) {
         bostäder.add(villa);
     }
 
-    public void lägg_till_lagenhet(Lagenhet lagenhet){
+    public void lägg_till_lagenhet(Lagenhet lagenhet) {
         bostäder.add(lagenhet);
     }
 
-    public void lägg_till_radhus(Radhus radhus){
+    public void lägg_till_radhus(Radhus radhus) {
         bostäder.add(radhus);
     }
 
-    public void lägg_till_garage(Garage garage){
+    public void lägg_till_garage(Garage garage) {
         lagringar.add(garage);
     }
 
-    public void lägg_till_lägenhetshus(Lagenhetshus lagenhetshus){
+    public void lägg_till_lägenhetshus(Lagenhetshus lagenhetshus) {
         lagenhetshusLista.add(lagenhetshus);
     }
 
-    public void lista_beställningar(){
+    //Listar upp alla beställningar
+    public void lista_beställningar() {
         System.out.println("Beställningar:");
-        System.out.println("Bostäder: " + bostäder + "\n" +"Lagringar: " + lagringar 
-            + "\n" + "Lägenhetshus: " + lagenhetshusLista
-        );
+        System.out.println("Bostäder: " + bostäder + "\n" + "Lagringar: " + lagringar
+                + "\n" + "Lägenhetshus: " + lagenhetshusLista);
 
     }
-
 
 }

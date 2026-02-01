@@ -15,6 +15,7 @@ public class Lagenhet extends Bostad {
             throw new IllegalArgumentException("Välj snälla tillåtna värden");
         }
 
+        //Körs om allt är ok
         this.månadsAvgift = månadsAvgift;
         this.hyraPris = hyraPris;
     }
@@ -32,6 +33,8 @@ public class Lagenhet extends Bostad {
         }
         this.hyraPris = hyraPris;
     }
+
+    // Setters från super klassen Bostad
 
     @Override
     protected void setAntalBadRum(int antalBadRum) {

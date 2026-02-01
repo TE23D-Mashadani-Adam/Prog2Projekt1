@@ -31,6 +31,8 @@ public class Villa extends Bostad {
         this.antalBassänger = antalBassänger;
     }
 
+    // Setters från super klassen Bostad
+
     @Override
     protected void setAntalBadRum(int antalBadRum) {
         // TODO Auto-generated method stub
